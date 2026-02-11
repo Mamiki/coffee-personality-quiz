@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style 2: Minimal & Clean</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #FAFAFA;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 56px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 24px rgba(0,0,0,0.04);
+  }
+  .meta {
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 32px;
+  }
+  .progress { display: flex; gap: 6px; margin-bottom: 40px; }
+  .dot { width: 32px; height: 3px; background: #eee; border-radius: 2px; }
+  .dot.active { background: #000; }
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0a0a0a;
+    margin-bottom: 36px;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .option:hover { border-color: #000; }
+  .option.selected { border-color: #000; background: #000; color: white; }
+  .arrow { font-size: 12px; opacity: 0.4; }
+  .style-label { text-align: center; margin-top: 40px; font-size: 11px; color: #ccc; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="meta">What's Your Coffee Personality?</div>
+  <div class="progress">
+    <div class="dot active"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <h1>It's Saturday morning. What's your vibe?</h1>
+  <div class="options">
+    <div class="option">Up at 6am, gym before breakfast <span class="arrow">→</span></div>
+    <div class="option selected">Slow morning, coffee in bed with Netflix <span class="arrow">→</span></div>
+    <div class="option">Brunch plans with the whole crew <span class="arrow">→</span></div>
+    <div class="option">Farmers market, then meal prep <span class="arrow">→</span></div>
+  </div>
+  <div class="style-label">Style 2: Minimal & Clean</div>
+</div>
+</body>
+</html>

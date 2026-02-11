@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style 4: Warm & Cozy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Lato:wght@300;400;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(160deg, #F5ECD7 0%, #E8D5B7 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: #FFFDF8;
+    border-radius: 24px;
+    padding: 52px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(139, 90, 43, 0.12);
+    border: 1px solid #EDE0C4;
+  }
+  .top { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+  .coffee-icon { font-size: 28px; }
+  .quiz-name { font-family: 'Playfair Display', serif; font-size: 14px; color: #8B5A2B; letter-spacing: 0.5px; }
+  .progress { display: flex; gap: 8px; margin-bottom: 36px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #E8D5B7; }
+  .dot.active { background: #8B5A2B; }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #3D2010;
+    margin-bottom: 32px;
+    line-height: 1.4;
+  }
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option {
+    border: 1.5px solid #EDE0C4;
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 15px;
+    color: #5C3D1E;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #FFFDF8;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .option:hover { border-color: #8B5A2B; background: #FDF6EC; }
+  .option.selected { border-color: #8B5A2B; background: #8B5A2B; color: white; }
+  .style-label { text-align: center; margin-top: 36px; font-size: 11px; color: #C4A882; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="top">
+    <div class="coffee-icon">☕</div>
+    <div class="quiz-name">What's Your Coffee Personality?</div>
+  </div>
+  <div class="progress">
+    <div class="dot active"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <h1>It's Saturday morning. What's your vibe?</h1>
+  <div class="options">
+    <div class="option">Up at 6am, gym before breakfast</div>
+    <div class="option selected">Slow morning, coffee in bed with Netflix</div>
+    <div class="option">Brunch plans with the whole crew</div>
+    <div class="option">Farmers market, then meal prep</div>
+  </div>
+  <div class="style-label">Style 4: Warm & Cozy</div>
+</div>
+</body>
+</html>
