@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type PersonalityKey = "bold" | "sweet" | "social" | "indulgent";
 
@@ -117,6 +117,8 @@ export default function Quiz() {
   const [answers, setAnswers] = useState<PersonalityKey[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<PersonalityKey | null>(null);
+  const [capturing, setCapturing] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const handleStart = () => setStarted(true);
 
@@ -135,6 +137,42 @@ export default function Quiz() {
         setCurrentQuestion(currentQuestion + 1);
       }
     }, 600);
+  };
+
+  const handleShare = async () => {
+    if (!resultsRef.current) return;
+    setCapturing(true);
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const canvas = await html2canvas(resultsRef.current, {
+        backgroundColor: "#ffffff",
+        scale: 2,
+        useCORS: true,
+      });
+      const blob = await new Promise<Blob>((resolve) =>
+        canvas.toBlob((b) => resolve(b!), "image/png")
+      );
+      // Try Web Share API first (mobile-friendly)
+      if (navigator.canShare && navigator.canShare({ files: [new File([blob], "coffee-personality.png", { type: "image/png" })] })) {
+        await navigator.share({
+          title: "My Coffee Personality Quiz Result!",
+          text: "I just took the Coffee Personality Quiz — check out my result!",
+          url: window.location.href,
+          files: [new File([blob], "coffee-personality.png", { type: "image/png" })],
+        });
+      } else {
+        // Fallback: download the image
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "coffee-personality.png";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      console.error("Share failed", err);
+    }
+    setCapturing(false);
   };
 
   const handleRestart = () => {
@@ -180,7 +218,7 @@ export default function Quiz() {
     const results = calculateResults();
     const top = results[0];
     return (
-      <div style={styles.card}>
+      <div style={styles.card} ref={resultsRef}>
         <div style={{ fontSize: "3rem", marginBottom: "0.5rem" }}>{top.emoji}</div>
         <h2 style={{ ...styles.title, fontSize: "1.6rem", marginBottom: "0.25rem" }}>
           You are a...
@@ -224,9 +262,18 @@ export default function Quiz() {
           ))}
         </div>
 
-        <button style={styles.restartButton} onClick={handleRestart}>
-          Take it again 🔄
-        </button>
+        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <button
+            style={styles.shareButton}
+            onClick={handleShare}
+            disabled={capturing}
+          >
+            {capturing ? "Capturing..." : "Share Results 📸"}
+          </button>
+          <button style={styles.restartButton} onClick={handleRestart}>
+            Take it again 🔄
+          </button>
+        </div>
       </div>
     );
   }
@@ -424,6 +471,19 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#555",
     cursor: "pointer",
     fontFamily: "'Nunito', sans-serif",
+    transition: "all 0.15s",
+  },
+  shareButton: {
+    background: "linear-gradient(135deg, #FF6B6B, #FFE66D)",
+    border: "none",
+    borderRadius: "50px",
+    padding: "0.75rem 2rem",
+    fontSize: "1rem",
+    fontWeight: 800,
+    color: "#333",
+    cursor: "pointer",
+    fontFamily: "'Nunito', sans-serif",
+    boxShadow: "3px 3px 0px #FF6B6B",
     transition: "all 0.15s",
   },
 };
